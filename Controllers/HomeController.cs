@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FormRegistrator.DAL;
+using FormRegistrator.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,7 @@ namespace FormRegistrator.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationContext db = new ApplicationContext();
         public ActionResult Index()
         {
             return View();
@@ -15,9 +18,15 @@ namespace FormRegistrator.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            string query = "SELECT RegistrationDate, COUNT(*) AS ClientCount "
+              + "FROM Client "
+              + "GROUP BY RegistrationDate";
 
-            return View();
+            IEnumerable<RegistrationDateGroup> data = db.Database.SqlQuery<RegistrationDateGroup>(query);
+
+            var clintsList = data.ToList();
+
+            return View(data.ToList());
         }
 
         public ActionResult Contact()
@@ -25,6 +34,12 @@ namespace FormRegistrator.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
