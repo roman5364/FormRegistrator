@@ -12,7 +12,7 @@ namespace FormRegistrator.Controllers
     public class ClientsController : Controller
     {
         private ApplicationContext db = new ApplicationContext();
-        // GET: Student
+        // GET: Client
         public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
@@ -105,7 +105,7 @@ namespace FormRegistrator.Controllers
         }
 
 
-        // GET: Student/Edit/5
+        // GET: Client/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
