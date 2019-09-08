@@ -11,11 +11,7 @@ namespace FormRegistrator.Controllers
     public class HomeController : Controller
     {
         private ApplicationContext db = new ApplicationContext();
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+        
         public ActionResult About()
         {
             string query = "SELECT RegistrationDate, COUNT(*) AS ClientCount "
